@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare spawn-local work from local ledger receipts and optional T3 run metadata."""
+"""Compare until-green work from local ledger receipts and optional T3 run metadata."""
 import argparse
 from collections import defaultdict
 from contextlib import closing
@@ -193,7 +193,7 @@ def compile_report(rows, t3, cohort=None, base=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--root",type=Path,default=Path.home()/".local/state/spawn-local")
+    parser.add_argument("--root",type=Path,default=Path.home()/".local/state/until-green")
     parser.add_argument("--t3-db",type=Path,default=Path.home()/".t3/userdata/statev2.sqlite")
     parser.add_argument("--ledger-only",action="store_true")
     parser.add_argument("--format",choices=("json","table"),default="table")

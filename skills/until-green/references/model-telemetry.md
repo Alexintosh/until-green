@@ -15,12 +15,12 @@ Supply fields independently. Input includes cached input. Use `--inference-ms` o
 ## Read the results
 
 ```sh
-python3 ~/.codex/skills/spawn-local/scripts/model_report.py
-python3 ~/.codex/skills/spawn-local/scripts/model_report.py --cohort parser-repairs
-python3 ~/.codex/skills/spawn-local/scripts/model_report.py --format json
+python3 ~/.codex/skills/until-green/scripts/model_report.py
+python3 ~/.codex/skills/until-green/scripts/model_report.py --cohort parser-repairs
+python3 ~/.codex/skills/until-green/scripts/model_report.py --format json
 ```
 
-By default the script reads immediate child milestone directories of `~/.local/state/spawn-local` and T3's local run projection in `~/.t3/userdata/statev2.sqlite`. Use `--root DIR`, `--t3-db FILE`, or `--ledger-only` elsewhere. Combine `--cohort LABEL --base FULL_SHA` to select the same starting revision. Ledger-only mode includes previously saved T3 metadata; it makes no live T3 queries. To retain a point-in-time export, redirect the JSON to a dated file in private milestone evidence. The exported fields contain task IDs, model metadata, labels, SHAs, timings, resource counters and review measurements. Prompt text, chat, patches, raw errors, hypotheses and review bodies are excluded. Old untracked T3 writer jobs may be explicitly listed in optional `ROOT/telemetry-history.json` as objects in an array with `task` (exact T3 task ID), `milestone`, `kind` and `cohort`. These references provide historical timings without creating dispatch attempts or attributing later integrated review scores to those jobs.
+By default the script reads immediate child milestone directories of `~/.local/state/until-green` and T3's local run projection in `~/.t3/userdata/statev2.sqlite`. Use `--root DIR`, `--t3-db FILE`, or `--ledger-only` elsewhere. Combine `--cohort LABEL --base FULL_SHA` to select the same starting revision. Ledger-only mode includes previously saved T3 metadata; it makes no live T3 queries. To retain a point-in-time export, redirect the JSON to a dated file in private milestone evidence. The exported fields contain task IDs, model metadata, labels, SHAs, timings, resource counters and review measurements. Prompt text, chat, patches, raw errors, hypotheses and review bodies are excluded. Old untracked T3 writer jobs may be explicitly listed in optional `ROOT/telemetry-history.json` as objects in an array with `task` (exact T3 task ID), `milestone`, `kind` and `cohort`. These references provide historical timings without creating dispatch attempts or attributing later integrated review scores to those jobs.
 
 ## Interpret the measurements
 

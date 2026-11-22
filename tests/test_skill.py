@@ -8,7 +8,7 @@ import tempfile
 import unittest
 
 
-SKILL = Path(__file__).resolve().parents[1] / "skills" / "spawn-local"
+SKILL = Path(__file__).resolve().parents[1] / "skills" / "until-green"
 REV = "a" * 40
 
 
@@ -19,7 +19,7 @@ class SkillTests(unittest.TestCase):
         self.home = Path(temp.name)
         self.db = self.home / "milestones" / "test" / "dispatch.sqlite"
         self.env = dict(os.environ, HOME=temp.name, XDG_CONFIG_HOME=str(self.home / "cfg"))
-        self.env.pop("SPAWN_LOCAL_PROFILE", None)
+        self.env.pop("UNTIL_GREEN_PROFILE", None)
 
     def ledger(self, *args, ok=True):
         result = subprocess.run([sys.executable, str(SKILL / "scripts/dispatch.py"),
@@ -34,7 +34,7 @@ class SkillTests(unittest.TestCase):
         profile = self.ledger("init", "--profile", "alpi", "--writer", "local:max", "--reviewer", "sol2:high")
         self.assertEqual(profile["dispatcher"]["providerInstanceId"], "codex_tensorfold")
         self.assertEqual(profile["writerLevels"][0]["options"], {"reasoningEffort": "max"})
-        self.env["SPAWN_LOCAL_PROFILE"] = "codex"
+        self.env["UNTIL_GREEN_PROFILE"] = "codex"
         self.assertEqual(self.ledger("routes"), profile)
         self.assertIn("frozen", self.ledger("init", "--profile", "codex", ok=False))
         self.assertEqual(self.ledger("review-start", "component", REV)["model"], "gpt-6.2-sol")
@@ -88,7 +88,7 @@ class SkillTests(unittest.TestCase):
         self.assertEqual(self.ledger("finish", repair["token"], "technical", "evidence")["state"], "takeover")
 
     def test_defaults_and_invalid_configuration(self):
-        pref = self.home / "cfg/spawn-local/profile.json"
+        pref = self.home / "cfg/until-green/profile.json"
         pref.parent.mkdir(parents=True)
         pref.write_text((SKILL / "profiles/codex.json").read_text())
         self.assertIn("unknown agent", self.ledger("init", "--reviewer", "typo:high", ok=False))
@@ -96,7 +96,7 @@ class SkillTests(unittest.TestCase):
             self.assertEqual(db.execute("SELECT count(*) FROM milestone_config").fetchone()[0], 0)
         self.assertEqual(self.ledger("init")["dispatcher"]["driverKind"], "codex")
         self.db = self.home / "other.sqlite"
-        self.env["SPAWN_LOCAL_PROFILE"] = "alpi"
+        self.env["UNTIL_GREEN_PROFILE"] = "alpi"
         self.assertEqual(self.ledger("init")["dispatcher"]["model"], "GLM-5.3-Flash")
         self.db = self.home / "explicit.sqlite"
         self.assertEqual(self.ledger("init", "--profile", "default")["dispatcher"]["driverKind"], "opencode")

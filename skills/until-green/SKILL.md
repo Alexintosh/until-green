@@ -1,15 +1,15 @@
 ---
-name: spawn-local
-description: Coordinate a coding milestone through one event-driven T3 dispatcher, configurable implementation models and independent reviewers. Use when the user invokes $spawn-local to delegate implementation with durable retries, thinking and model escalation, and local telemetry.
+name: until-green
+description: Coordinate a coding milestone through one event-driven T3 dispatcher, configurable implementation models and independent reviewers. Use when the user invokes $until-green to delegate implementation with durable retries, thinking and model escalation, and local telemetry.
 ---
 
-# Spawn Local
+# Until Green
 
 ## Resolve the routes
 
-Use the scripts and profiles relative to this skill directory. Create a private milestone directory outside the repository, normally under `~/.local/state/spawn-local/<milestone>/`. Keep its brief, `dispatch.sqlite`, evidence and handoff together. Pick stable problem IDs based on acceptance criteria.
+Use the scripts and profiles relative to this skill directory. Create a private milestone directory outside the repository, normally under `~/.local/state/until-green/<milestone>/`. Keep its brief, `dispatch.sqlite`, evidence and handoff together. Pick stable problem IDs based on acceptance criteria.
 
-Run `python3 scripts/dispatch.py --db "$db" init` before delegation. Profiles configure the dispatcher, first writer, escalation ladder and independent reviewer. The built-in profiles are `default` (OpenCode first), `codex` (Codex only) and `alpi` (Codex with local GLM first). Select one with `--profile NAME` or use a full JSON file. A saved personal default lives at `${XDG_CONFIG_HOME:-$HOME/.config}/spawn-local/profile.json`. An explicit profile takes precedence over `SPAWN_LOCAL_PROFILE`, the personal file and the bundled default, in that order.
+Run `python3 scripts/dispatch.py --db "$db" init` before delegation. Profiles configure the dispatcher, first writer, escalation ladder and independent reviewer. The built-in profiles are `default` (OpenCode first), `codex` (Codex only) and `alpi` (Codex with local GLM first). Select one with `--profile NAME` or use a full JSON file. A saved personal default lives at `${XDG_CONFIG_HOME:-$HOME/.config}/until-green/profile.json`. An explicit profile takes precedence over `UNTIL_GREEN_PROFILE`, the personal file and the bundled default, in that order.
 
 Translate role assignments in the user's prompt into milestone overrides. For a known alias, pass `--dispatcher ALIAS:EFFORT`, `--writer ALIAS:LEVEL,LEVEL` or `--reviewer ALIAS:EFFORT`. The writer shortcut replaces only the first stage. For a new model, harness or custom ladder, write a small `--override FILE` in private milestone state; use the provider instance, model and option IDs advertised on this host. Merge objects, replace arrays, then apply the role shortcuts. The effective configuration is frozen in SQLite; `routes` reads it on resume. Keep personal and bundled defaults intact when the user requests a one-off override.
 

@@ -100,14 +100,14 @@ def role_override(value, writer=False):
 
 
 def load_profile(name, override, roles):
-    name = name or os.environ.get("SPAWN_LOCAL_PROFILE")
+    name = name or os.environ.get("UNTIL_GREEN_PROFILE")
     if name in ("alpi", "codex", "default"):
         path = PRESETS / (name + ".json")
     elif name:
         path = Path(name).expanduser()
     else:
         config = Path(os.environ.get("XDG_CONFIG_HOME") or Path.home() / ".config")
-        user = config / "spawn-local" / "profile.json"
+        user = config / "until-green" / "profile.json"
         path = user if user.exists() else PRESETS / "default.json"
     profile = read_object(path)
     if override:
