@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "agents": {
+    "sol1": {
+      "driverKind": "codex",
+      "providerInstanceId": "codex",
+      "model": "gpt-6.1-sol",
+      "effortOption": "reasoningEffort"
+    },
+    "sol2": {
+      "driverKind": "codex",
+      "providerInstanceId": "codex",
+      "model": "gpt-6.2-sol",
+      "effortOption": "reasoningEffort"
+    }
+  },
+  "dispatcher": {
+    "agent": "sol1",
+    "effort": "low"
+  },
+  "reviewer": {
+    "agent": "sol1",
+    "effort": "high"
+  },
+  "writers": [
+    {
+      "agent": "sol1",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ]
+    },
+    {
+      "agent": "sol2",
+      "levels": [
+        "high",
+        "max"
+      ]
+    }
+  ],
+  "attemptsPerLevel": 3
+}

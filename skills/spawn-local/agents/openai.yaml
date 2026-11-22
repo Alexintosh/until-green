@@ -1,0 +1,6 @@
+interface:
+  display_name: "Spawn Local"
+  short_description: "Dispatch local work with bounded model escalation"
+  default_prompt: "Use $spawn-local to delegate this milestone with a local dispatcher."
+policy:
+  allow_implicit_invocation: false

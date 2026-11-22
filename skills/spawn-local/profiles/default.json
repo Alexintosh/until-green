@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "agents": {
+    "local": {
+      "driverKind": "opencode",
+      "providerInstanceId": "opencode",
+      "model": "tensorfold/DeepSeek-V4.1-Flash-1017",
+      "effortOption": "variant"
+    },
+    "sol1": {
+      "driverKind": "codex",
+      "providerInstanceId": "codex",
+      "model": "gpt-6.1-sol",
+      "effortOption": "reasoningEffort"
+    },
+    "sol2": {
+      "driverKind": "codex",
+      "providerInstanceId": "codex",
+      "model": "gpt-6.2-sol",
+      "effortOption": "reasoningEffort"
+    }
+  },
+  "dispatcher": {
+    "agent": "local",
+    "effort": "low"
+  },
+  "reviewer": {
+    "agent": "sol1",
+    "effort": "high"
+  },
+  "writers": [
+    {
+      "agent": "local",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ]
+    },
+    {
+      "agent": "sol1",
+      "levels": [
+        "high",
+        "max"
+      ]
+    },
+    {
+      "agent": "sol2",
+      "levels": [
+        "max"
+      ]
+    }
+  ],
+  "attemptsPerLevel": 3
+}
